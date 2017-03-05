@@ -15,14 +15,6 @@ class PhotosControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create photo" do
-    assert_difference('Photo.count') do
-      post photos_url, params: { photo: { album_id: @photo.album_id, thumbnailUrl: @photo.thumbnailUrl, title: @photo.title, url: @photo.url } }
-    end
-
-    assert_redirected_to photo_url(Photo.last)
-  end
-
   test "should show photo" do
     get photo_url(@photo)
     assert_response :success
@@ -31,11 +23,6 @@ class PhotosControllerTest < ActionDispatch::IntegrationTest
   test "should get edit" do
     get edit_photo_url(@photo)
     assert_response :success
-  end
-
-  test "should update photo" do
-    patch photo_url(@photo), params: { photo: { album_id: @photo.album_id, thumbnailUrl: @photo.thumbnailUrl, title: @photo.title, url: @photo.url } }
-    assert_redirected_to photo_url(@photo)
   end
 
   test "should destroy photo" do
