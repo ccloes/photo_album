@@ -37,7 +37,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 group :local do
-  gem 'sqlite3'
+#  gem 'sqlite3'
 end
 
 group :development, :test do
