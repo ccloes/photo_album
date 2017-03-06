@@ -9,6 +9,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def reset
+    Photo.delete_all
+    Album.delete_all
+    User.delete_all
+
+    respond_to do |format|
+      format.html { redirect_to "/" }
+      format.json { head :no_content }
+    end
+  end
+
   # GET /users
   # GET /users.json
   def index
