@@ -1,4 +1,5 @@
-# README
+# Photo Album manager app
+This is an example RAILS app which implements a REST interface.
 
 ## Pre-requisites
 * Ruby 2.3.1
