@@ -1,24 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Pre-requisites
+* Ruby 2.3.1
+* Bundler installed
 
-Things you may want to cover:
+## Setup
+* bundle install
 
-* Ruby version
+* rails s -e development
 
-* System dependencies
+## Heroku environment
+This application is also deployed and available in heroku at https://glacial-harbor-31739.herokuapp.com
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
