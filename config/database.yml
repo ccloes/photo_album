@@ -12,6 +12,6 @@ test:
 
 production:
   adapter: postgresql
-  host: localhost
+  database: postgresql-animate-84106
   pool: 5
   timeout: 5000
