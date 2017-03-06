@@ -1,66 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  after_filter :load, only: :init
 
   def init
     respond_to do |format|
       format.html { redirect_to "/pages/loading.html" }
       format.json { head :no_content }
-    end
-
-    album_url = "https://jsonplaceholder.typicode.com/albums"
-    photos_url = "https://jsonplaceholder.typicode.com/photos"
-
-    album_response = HTTParty.get(album_url)
-    album_body = JSON.parse(album_response.body)
-    photos_response = HTTParty.get(photos_url)
-    photos_body = JSON.parse(photos_response.body)
-
-    album_body.each do |album|
-      if User.exists?(album['userId'])
-        puts '.'
-      else
-        puts 'User not found... creating user'
-        u = User.new
-        u.id = album['userId']
-        u.name = album['userId']
-        u.save
-      end
-    end
-
-    album_body.each do |album|
-      if Album.exists?(album['id'])
-        puts '.'
-      else
-        a = Album.new
-        a.id = album['id']
-        a.user_id = album['userId']
-        a.title = album['title']
-        a.save
-        puts 'Album created... '
-      end
-    end
-
-    photos_body.each do |photo|
-      if Album.exists?(photo['albumId'])
-        puts 'Re-checked'
-      else
-        puts 'Album not found... this should raise an error'
-      end
-    end
-
-    photos_body.each do |photo|
-      if Photo.exists?(photo['id'])
-        puts 'Photo already exists... '
-      else
-        puts 'Photo not found... creating photo'
-        p = Photo.new
-        p.album_id = photo['albumId']
-        p.id = photo['id']
-        p.title = photo['title']
-        p.url = photo['url']
-        p.thumbnailUrl = photo['thumbnailUrl']
-        p.save
-      end
     end
   end
 
@@ -133,5 +78,65 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name)
+    end
+
+    def load
+      Spawnling.new do
+        album_url = "https://jsonplaceholder.typicode.com/albums"
+        photos_url = "https://jsonplaceholder.typicode.com/photos"
+
+        album_response = HTTParty.get(album_url)
+        album_body = JSON.parse(album_response.body)
+        photos_response = HTTParty.get(photos_url)
+        photos_body = JSON.parse(photos_response.body)
+
+        album_body.each do |album|
+          if User.exists?(album['userId'])
+            puts '.'
+          else
+            puts 'User not found... creating user'
+            u = User.new
+            u.id = album['userId']
+            u.name = album['userId']
+            u.save
+          end
+        end
+
+        album_body.each do |album|
+          if Album.exists?(album['id'])
+            puts '.'
+          else
+            a = Album.new
+            a.id = album['id']
+            a.user_id = album['userId']
+            a.title = album['title']
+            a.save
+            puts 'Album created... '
+          end
+        end
+
+        photos_body.each do |photo|
+          if Album.exists?(photo['albumId'])
+            puts 'Re-checked'
+          else
+            puts 'Album not found... this should raise an error'
+          end
+        end
+
+        photos_body.each do |photo|
+          if Photo.exists?(photo['id'])
+            puts 'Photo already exists... '
+          else
+            puts 'Photo not found... creating photo'
+            p = Photo.new
+            p.album_id = photo['albumId']
+            p.id = photo['id']
+            p.title = photo['title']
+            p.url = photo['url']
+            p.thumbnailUrl = photo['thumbnailUrl']
+            p.save
+          end
+        end
+      end
     end
 end
