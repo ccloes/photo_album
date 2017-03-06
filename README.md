@@ -1,7 +1,7 @@
 # Photo Album manager app
 This is an example RAILS app which implements a REST interface.
 
-## Installtion Pre-requisites
+## Installation Pre-requisites
 * rbenv - https://github.com/rbenv/rbenv
 * Ruby 2.3.1 (rbenv install 2.3.1)
 * Bundler installed (gem install bundler)
