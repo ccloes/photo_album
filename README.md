@@ -8,6 +8,8 @@ This is an example RAILS app which implements a REST interface.
 
 ## Installation and running
 * bundle install
+* export SECRET_KEY_BASE=`rails secret`
+* rails db:migrate
 * rails s -e development
 
 ## Heroku environment
