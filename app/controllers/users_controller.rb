@@ -2,6 +2,11 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def init
+    respond_to do |format|
+      format.html { redirect_to "/pages/loading.html" }
+      format.json { head :no_content }
+    end
+
     album_url = "https://jsonplaceholder.typicode.com/albums"
     photos_url = "https://jsonplaceholder.typicode.com/photos"
 
@@ -9,10 +14,6 @@ class UsersController < ApplicationController
     album_body = JSON.parse(album_response.body)
     photos_response = HTTParty.get(photos_url)
     photos_body = JSON.parse(photos_response.body)
-
-#    @users = User.all
-#    @albums = Album.all
-#    @photos = Photo.all
 
     album_body.each do |album|
       if User.exists?(album['userId'])
@@ -60,11 +61,6 @@ class UsersController < ApplicationController
         p.thumbnailUrl = photo['thumbnailUrl']
         p.save
       end
-    end
-
-    respond_to do |format|
-      format.html { redirect_to albums_url, notice: 'App was successfully initialized.' }
-      format.json { head :no_content }
     end
   end
 
